@@ -1,0 +1,537 @@
+\chapter{Nonlinear Interactions in Waveguides}
+
+This is also an extremely important chapter. Modeling nonlinear interactions in waveguides is essential for running and interpreting simulations, and the results can be extended to more complicated systems like optical resonators and yields a convenient way to write quantized field equations.
+
+\section{The Poynting theorem and mode orthogonality}
+
+\noindent \textbf{obs.:} think of this section as a lemma. I am only trying to prove a result that will be important for a single step in the subsequent step\\
+
+Normalization choices for fields in a guided mode depend heavily on the defintion of the poyting vector, whose most simple expression is a direct consequence of conservation of energy. Simply note that the  rate of work done by the fields is
+%
+\begin{equation}
+\int_V \textbf{J}\cdot\textbf{E}\;\;d^3x=\int_V\left[\textbf{E}\cdot\left(\nabla\times\textbf{H}-\frac{\partial\textbf{D}}{\partial t}\right)\right]d^3x,
+\end{equation}
+%
+Using the expression for the divergence of the cross product, we get
+%
+\begin{equation}
+\textbf{E}\cdot(\nabla\times\textbf{H})-\textbf{E}\cdot\frac{\partial\textbf{D}}{\partial t}=-\nabla\cdot(\textbf{E}\times\textbf{H})+\textbf{H}\cdot(\nabla\times\textbf{E})-\textbf{E}\cdot\frac{\partial\textbf{D}}{\partial t}.
+\end{equation}
+%
+Therefore
+\begin{equation}
+\int_V \textbf{J}\cdot\textbf{E}\;\;d^3x=-\int_V\left(\nabla\cdot(\textbf{E}\times\textbf{H})+\textbf{H}\cdot\frac{\partial\textbf{B}}{\partial t}+\textbf{E}\cdot\frac{\partial\textbf{D}}{\partial t}\right)d^3x.
+\end{equation}
+
+Now, if we were to neglect magnetization and polarization ($\chi_e=\chi_m=0$, $\epsilon=\epsilon_0$ and $\mu=\mu_0$) as well as dispersion and losses, we could write the total energy $u$ such that
+\begin{equation}
+u=\frac{1}{2}\left(\textbf{E}\cdot\textbf{D}+\textbf{B}\cdot\textbf{H}\right)\;\;\Rightarrow\;\;\int_V \textbf{J}\cdot\textbf{E}\;\;d^3x=-\int_V\left(\nabla\cdot(\textbf{E}\times\textbf{H})+\frac{\partial u}{\partial t}\right)d^3x.
+\end{equation}
+
+Which is where the Poynting vector would appear
+%
+\begin{equation}
+\boxed{\textbf{S}\equiv\textbf{E}\times\textbf{H}\;\;\;\Rightarrow\;\;\;-(\textbf{J}\cdot\textbf{E})=\nabla\cdot\textbf{S}+\frac{\partial u}{\partial t}}.
+\end{equation}
+
+The complex Poynting vector, in turn, appears when we consider a quantity whose real part is the \textit{time-averaged} rate of work done by the fields in the volume. If the fields vary harmonically in time, we could write
+%
+\begin{align}
+\textbf{J}(\textbf{r},t)\cdot\textbf{E}(\textbf{r},t)&=\frac{1}{4}\left[\left(\textbf{J}(\textbf{r})e^{-i\omega t}+\textbf{J}^*(\textbf{r})e^{i\omega t}\right)\times\left(\textbf{E}(\textbf{r})e^{-i\omega t}+\textbf{E}^*(\textbf{r})e^{i\omega t}\right)\right]\\
+&=\frac{1}{2}\Re\left[\textbf{J}^*(\textbf{r})\cdot\textbf{E}(\textbf{r})+\textbf{J}(\textbf{r})\cdot\textbf{E}(\textbf{r})e^{-2i\omega t}\right].
+\end{align}
+%
+When we take the time average of this quantity, the oscillating term will vanish, such that
+%
+
+\begin{equation}
+    \Re\left[\frac{1}{2}\int_V \textbf{J}^*(\textbf{r})\cdot\textbf{E}(\textbf{r})\;d^3x\right]=\left\langle\frac{d}{dt}W\right\rangle.
+\end{equation}
+
+Now we follow the same procedure as before, but now using Maxwell's equations for harmonic time variation of the fields (I'll omit it, but there is only spatial dependence here),
+%
+\begin{align}
+    \frac{1}{2}\int_V \textbf{J}^*\cdot\textbf{E}\;d^3x&=\frac{1}{2}\int_V\textbf{E}\cdot\left[\nabla\times\textbf{H}^*-i\omega\textbf{D}^*\right]d^3x\\
+    &= \frac{1}{2}\int_V\left[-\nabla\cdot(\textbf{E}\times\textbf{H}^*)-i\omega(\textbf{E}\cdot\textbf{D}^*-\textbf{B}\cdot\textbf{H}^*)\right]
+\end{align}.
+%
+Which motivates the definition of the complex Poynting vector
+\begin{equation*}
+    \textbf{S}=\frac{1}{2}\left[\textbf{E}(\textbf{r})\times\textbf{H}^*(\textbf{r})\right]
+\end{equation*}
+
+And the Poynting theorem for harmonic fields is written as
+\begin{subequations}
+\begin{equation}
+    \frac{1}{2}\int_V\textbf{J}^*\cdot \textbf{E} \;d^3x+2i\omega\int_V(w_e-w_m)\;d^3x+\oint_S\textbf{S}\cdot\textbf{n}da=0
+\end{equation}
+\begin{equation}
+    w_e=\frac{1}{4}(\textbf{E}\cdot\textbf{D}^*),\;\;\;\;w_m=\frac{1}{4}(\textbf{B}\cdot\textbf{H}^*)
+\end{equation}
+\end{subequations}
+The real part of this equation gives the conservation of energy for the time-averaged quantities, and the imaginary part relates to the reactive or stored energy and its alternating flow.
+
+This definition of the Poynting vector will be used to motivate our choice for normalization of fields in a waveguide. From Maxwell's Equations, consider two distinct guided modes $m$ and $n$
+%
+\begin{equation}
+\begin{cases}
+\nabla\times\textbf{E}_m^*=i\omega\mu_0\textbf{H}_m^*\\
+\nabla\times\textbf{H}_m^*=-i\omega\epsilon_0\epsilon\textbf{E}_m^*\\
+\nabla\times\textbf{E}_n=-i\omega\mu_0\textbf{H}_n\\
+\nabla\times\textbf{H}_n=i\omega\epsilon_0\epsilon\textbf{E}_n
+\end{cases}\;\;\;\Rightarrow\;\;\;
+\begin{cases}
+\textbf{H}_n\cdot(\nabla\times\textbf{E}_m^*)=i\omega\mu_0\textbf{H}_m^*\cdot\textbf{H}_n\\
+\textbf{E}_n\cdot(\nabla\times\textbf{H}_m^*)=-i\omega\epsilon_0\epsilon\textbf{E}_m^*\cdot\textbf{E}_n\\
+\textbf{H}_m^*\cdot(\nabla\times\textbf{E}_n)=-i\omega\mu_0\textbf{H}_n\cdot\textbf{H}_m^*\\
+\textbf{E}_m^*\cdot(\nabla\times\textbf{H}_n)=i\omega\epsilon_0\epsilon\textbf{E}_n\cdot \textbf{E}_m^*
+\end{cases}
+\end{equation}
+%
+% \begin{gather}
+%     \nabla\times\textbf{E}_m^*=i\omega\mu_0\textbf{H}_m^*\;\;\;\text{and}\;\;\;\nabla\times\textbf{H}_m^*=-i\omega\epsilon_0\epsilon\textbf{E}_m^*\\
+%     \nabla\times\textbf{E}_n=-i\omega\mu_0\textbf{H}_n\;\;\;\text{and}\;\;\;\nabla\times\textbf{H}_n=i\omega\epsilon_0\epsilon\textbf{E}_n
+% \end{gather}
+%
+% We may take the dot products, such that
+% \begin{subequations}
+% \begin{gather}
+%     \textbf{H}_n\cdot\nabla\times\textbf{E}_m^*=i\omega\mu_0\textbf{H}_m^*\cdot\textbf{H}_n\;\;\;\text{and}\;\;\;\textbf{E}_n\cdot\nabla\times\textbf{H}_m^*=-i\omega\epsilon_0\epsilon\textbf{E}_m^*\cdot\textbf{E}_n\\
+%     \textbf{H}_m^*\cdot\nabla\times\textbf{E}_n=-i\omega\mu_0\textbf{H}_n\cdot\textbf{H}_m^*\;\;\;\text{and}\;\;\;\textbf{E}_m^*\cdot\nabla\times\textbf{H}_n=i\omega\epsilon_0\epsilon\textbf{E}_n\cdot \textbf{E}_m^*
+% \end{gather}
+% \end{subequations}
+%
+%
+Now we subtract the first and last equation:
+%
+\begin{equation}
+    \textbf{H}_n\cdot(\nabla\times\textbf{E}_m^*)-\textbf{E}_m^*\cdot(\nabla\times\textbf{H}_n)=i\omega\mu_0\textbf{H}_m^*\cdot\textbf{H}_n-i\omega\epsilon_0\epsilon\textbf{E}_n\cdot \textbf{E}_m^*
+\end{equation}
+And the subtract the third by the second
+%
+\begin{equation}
+    \textbf{H}_m^*\cdot(\nabla\times\textbf{E}_n)-\textbf{E}_n\cdot(\nabla\times\textbf{H}_m^*)=-i\omega\mu_0\textbf{H}_n\cdot\textbf{H}_m^*+i\omega\epsilon_0\epsilon\textbf{E}_m^*\cdot\textbf{E}_n
+\end{equation}
+%
+And using the identity
+\begin{equation}
+    \nabla\cdot\left(\textbf{A}\times\textbf{B}\right)=(\nabla\times\textbf{A})\cdot\textbf{B}-(\nabla\times\textbf{B})\cdot\textbf{A}
+\end{equation}
+%
+We demonstrate that
+\begin{equation}
+    \nabla\cdot\left(\textbf{E}_n\times\textbf{H}_m^*+\textbf{E}_m^*\times\textbf{H}_n\right)=0,
+\end{equation}
+which, for guided modes, can be rewritten as
+\begin{equation}
+    \left[\nabla_{(x,y)}+\frac{\partial}{\partial z}\right]\cdot\left(\textbf{E}_n(x,y)\times\textbf{H}^*_m(x,y)+\textbf{E}^*_m(x,y)\times\textbf{H}_n(x,y)\right)e^{-i(\beta_n-\beta_m)z}=0,
+\end{equation}
+therefore
+\begin{multline}
+    i(\beta_n-\beta_m)\left[\left(\textbf{E}_n(x,y)\times\textbf{H}^*_m(x,y)+\textbf{E}^*_m(x,y)\times\textbf{H}_n(x,y)\right)\cdot\hat{\textbf{z}}\right]=\\
+    \nabla_{(x,y)}\cdot\left[\left(\textbf{E}_n(x,y)\times\textbf{H}^*_m(x,y)+\textbf{E}^*_m(x,y)\times\textbf{H}_n(x,y)\right)\right]_{(x,y)}
+\end{multline}
+Applying the divergence theorem in the plane, we may turn the right hand side into a line integral along an infinitely large contour on the xy plane. Since guided modes go to zero at infinity, the equation reduces to
+\begin{equation}
+    i(\beta_n-\beta_m)\iint\left[\left(\textbf{E}_n(x,y)\times\textbf{H}^*_m(x,y)+\textbf{E}^*_m(x,y)\times\textbf{H}_n(x,y)\right)\cdot\hat{\textbf{z}}\right]\;dx\,dy=0
+\end{equation}
+Therefore, when we consider two different modes, the integral must always vanish. However, for $m=n$, the integral has a particular meaning. Since
+\begin{equation}
+    \Re(z)=\frac{z+z^*}{2}
+\end{equation}
+then
+\begin{multline}
+    \iint\left[\left(\textbf{E}_m(x,y)\times\textbf{H}^*_m(x,y)+\textbf{E}^*_m(x,y)\times\textbf{H}_m(x,y)\right)\cdot\hat{\textbf{z}}\right]\;dx\,dy=\\2\Re\left[\iint\left[\textbf{E}_m(x,y)\times\textbf{H}^*_m(x,y)\right]\cdot\hat{\textbf{z}}\,dx\,dy\right]=2\Re\left[\iint\textbf{2S}\;dx\,dy\right]
+\end{multline}
+So we could write the \textbf{mode orthogonality condition} as
+\begin{equation}
+    \boxed{\iint\left[\left(\textbf{E}_n(x,y)\times\textbf{H}^*_m(x,y)+\textbf{E}^*_m(x,y)\times\textbf{H}_n(x,y)\right)\cdot\hat{\textbf{z}}\right]\;dx\,dy=4P_n\delta_{mn}},
+\end{equation}
+where $P_n$ is the mode power flow at the waveguide input. We can turn this into an \textbf{orthonormality} condition by normalizing the fields so as to have unit power flow.
+
+In that case, we could define to vector quantities
+\begin{equation}
+    \textbf{F}_n(x, y, \omega) = \frac{1}{\sqrt{P_n(|\omega|)}}\textbf{E}_n(x, y, \omega) \;\;\;\text{and}\;\;\;\textbf{G}_n(x, y, \omega) = \frac{1}{\sqrt{P_n(|\omega|)}}\textbf{H}_n(x, y, \omega).
+\end{equation}
+
+which we might call the ``normalized mode profiles''.
+
+\section{Perturbative Nonlinear Waveguide}
+
+Now, instead of considering two modes $m$ and $n$, we consider first a mode propagating in a waveguide not exhibiting nonlinearity, and write it as
+\begin{equation}
+    \textbf{E}^{(0)}=\textbf{E}_m(x,y)\exp(-i\beta_mz)\;\;\;\text{and}\;\;\;\textbf{H}^{(0)}=\textbf{H}_m(x,y)\exp{-i\beta_mz}
+    \label{eq:fields.definitions}
+\end{equation}
+ignoring the normalization for now. Additionally, we consider the guided modes
+\begin{equation}
+    \textbf{E}(\textbf{r})=\sum_mA_m(z,\omega)\textbf{E}_m(x,y)\exp{-i\beta_m z}\;\;\;\text{and}\;\;\;\textbf{H}(\textbf{r})=\sum_mA_m(z,\omega)\textbf{H}_m(x,y)\exp{-i\beta_m z}
+\end{equation}
+where the $A(z,\omega)$ is a dimensionless factor used to account for the $z$ dependence of the electric and magnetic fields, since we anticipate that the presence of the nonlinearity will cause different modes to become coupled.
+
+The set of equations obeyed by these quantities is similar to the previous example, but now we add the polarization, such that
+\begin{equation}
+\begin{cases}
+\nabla\times\textbf{E}^{(0)^*}=i\omega\mu_0\textbf{H}^{(0)^*}\\
+
+\nabla\times\textbf{H}^{(0)^*}=-i\omega\epsilon_0\epsilon\textbf{E}^{(0)^*}\\
+
+\nabla\times\textbf{E}=-i\omega\mu_0\textbf{H}\\
+
+\nabla\times\textbf{H}=i\omega\left(\epsilon_0\epsilon\textbf{E}+\textbf{P}_{NL}\right)
+\end{cases}\;\;\;\Rightarrow\;\;\;
+%
+\begin{cases}
+\textbf{H}\cdot(\nabla\times\textbf{E}^{(0)^*})=i\omega\mu_0\textbf{H}^{(0)^*}\cdot\textbf{H}\\
+
+\textbf{E}\cdot(\nabla\times\textbf{H}^{(0)^*})=-i\omega\epsilon_0\epsilon\textbf{E}^{(0)^*}\cdot\textbf{E}\\
+
+\textbf{H}^{(0)}\cdot(\nabla\times\textbf{E})=-i\omega\mu_0\textbf{H}\cdot\textbf{H}^{(0)}\\
+
+\textbf{E}^{(0)}\cdot(\nabla\times\textbf{H})=i\omega\left(\epsilon_0\epsilon\textbf{E}+\textbf{P}_{NL}\right)\cdot\textbf{E}^{(0)}
+\end{cases}
+\end{equation}
+
+A quick comment is due on the $P_{NL}$ notation. Note that
+\begin{equation}
+    \textbf{D}=\varepsilon_0\textbf{E}+\textbf{P}=\varepsilon_0(1+\chi_e)\textbf{E}=\varepsilon_0\varepsilon\textbf{E}\;\;\text{s.t.}\;\;\;\textbf{P}=\varepsilon_0\left(\chi^{(1)}\textbf{E}(t)+\chi^{(2)}\textbf{E}^2(t)+\dots\right)
+\end{equation}
+which is to say that one may either write
+\begin{equation}
+    \textbf{D}=\varepsilon_0\textbf{E}+\textbf{P}\;\;\;\;\text{OR}\;\;\;\;\textbf{D}=\varepsilon_0\varepsilon\textbf{E}+\textbf{P}_{NL}
+\end{equation}
+
+And following the same procedure as before, we get to
+\begin{equation}
+    \nabla\cdot\left(\textbf{E}\times\textbf{H}^{(0)^*}+\textbf{E}^{(0)^*}\times\textbf{H}\right)=-i\omega\textbf{E}^{(0)^*}\cdot\textbf{P}_{NL}.
+\end{equation}
+Integrating this result in a volume parallel to the $xy$ plane with infinitely small thickness and infinite area, we get
+\begin{equation}
+    \iiint_V\nabla\cdot\left(\textbf{E}\times\textbf{H}^{(0)^*}+\textbf{E}^{(0)^*}\times\textbf{H}\right)\;dV=-i\omega\iiint_V\textbf{E}^{(0)^*}\cdot\textbf{P}_{NL}\;dV
+\end{equation}
+Separating the divergence in two terms,
+\begin{multline*}
+    \iiint_V\left[\nabla_{(x,y)}\cdot\left(\textbf{E}\times\textbf{H}^{(0)^*}+\textbf{E}^{(0)^*}\times\textbf{H}\right)_{(x,y)}\right]+\iiint_V\frac{\partial}{\partial z}\left(\textbf{E}\times\textbf{H}^{(0)^*}+\textbf{E}^{(0)^*}\times\textbf{H}\right)\cdot\hat{\textbf{z}}\;dV=\\
+    =-i\omega\iiint_V\textbf{E}^{(0)^*}\cdot\textbf{P}_{NL}\;dV
+\end{multline*}
+And applying the divergence theorem to the integral containing the $(x,y)$ components,
+\begin{multline*}
+    \oiint_{\partial V}\left[\left(\textbf{E}\times\textbf{H}^{(0)^*}+\textbf{E}^{(0)^*}\times\textbf{H}\right)_{(x,y)}\right]\cdot d\textbf{S}+\iiint_V\frac{\partial}{\partial z}\left(\textbf{E}\times\textbf{H}^{(0)^*}+\textbf{E}^{(0)^*}\times\textbf{H}\right)\cdot\hat{\textbf{z}}\;dV=\\
+    =-i\omega\iiint_V\textbf{E}^{(0)^*}\cdot\textbf{P}_{NL}\;dV
+\end{multline*}
+Since the guided modes go to zero at infinity, the first integral will vanish, for the same reason as before. And considering infinitely small thickness, we may rewrite the equation as
+\begin{equation}
+    \iint_S\frac{\partial}{\partial z}\left(\textbf{E}\times\textbf{H}^{(0)^*}+\textbf{E}^{(0)^*}\times\textbf{H}\right)\cdot\hat{\textbf{z}}\;dS  =-i\omega\iint_S\textbf{E}^{(0)^*}\cdot\textbf{P}_{NL}\;dS
+\end{equation}
+The only fields that will contribute to the cross product so as not to get a zero projection on $\hat{\textbf{z}}$ will be transverse, so
+\begin{equation}
+    \iint_S\frac{\partial}{\partial z}\left(\textbf{E}_T\times\textbf{H}_T^{(0)^*}+\textbf{E}_T^{(0)^*}\times\textbf{H}_T\right)\cdot\hat{\textbf{z}}\;dS  =-i\omega\iint_S\textbf{E}^{(0)^*}\cdot\textbf{P}_{NL}\;dS
+\end{equation}
+Notice that $T$ subscript is just a short notation for the $(x,y)$ argument. And by substituting the definitions of the fields, denoting the non-perturbed mode by $n$ and the perturbed mode by $m$, 
+\begin{multline}
+    \sum_m\frac{\partial}{\partial z}\left(A_m(z,\omega)e^{-i(\beta_m-\beta_n)z}\iint\left[\left(\textbf{E}_{T,m}\times\textbf{H}^*_{T,n}+\textbf{E}^*_{T,n}\times\textbf{H}_{T,m}\right)\cdot\hat{\textbf{z}}\right]\;dx\,dy\right)=\\=-i\omega\iint_S\textbf{E}_{m}^*(x,y)e^{i\beta_mz}\cdot\textbf{P}_{NL}\;dS
+\end{multline}
+and using the mode orthogonality condition, all terms in the summation will vanish, except for when $m=n$,
+\begin{equation}
+    \boxed{\frac{\partial}{\partial z} A_m(z,\omega)=-\frac{i\omega}{4P_m}e^{i\beta_mz}\iint_S\textbf{E}_{m}^*(x,y,\omega)\cdot\textbf{P}_{NL}(x,y,\omega)\;dx\,dy}
+    \label{eq:overlap integral}
+\end{equation}
+
+Note that $A_m(z,\omega)$ describes the coupling between modes in a waveguide due to a nonlinear interaction, and that it is proportional to the \textbf{spatial overlap integral} between the unperturbed field and the nonlinear polarization vector.
+
+% THIS IS A LARGE SECTION ON SECTION HARMONIC GENERATION, WHICH WAS READY BUT I DECIDED TO DO IT AGAIN BECAUSE THERE WAS A MISTAKE SOMEWHERE THAT I COULD NOT FIND FOR THE LIFE OF ME
+
+% \section{Second Harmonic Generation}
+
+% In order to provide a thorough description of SHG, we must first tackle two topics: (1) how to model waveguide grating employed in order to achieve quasi-phase matching, and (2) some notation on the nonlinear susceptibility tensor.
+
+% \subsubsection{Waveguide grating}
+
+% %\todo[inline]{To do: understand precisely why and when birefringence and other methods cease to work as a mechanism for phase-matching.}
+
+% We can achieve any modulation of the relative permittivity through a Fourier series
+% %
+% \begin{equation}
+%     \Delta\mtens{\epsilon}=\sum_q\Delta\mtens{\epsilon}_q(x,y)\exp\left(-i\frac{2\pi}{\Lambda}qz\right)
+% \end{equation}
+% %
+% and similarly for the nonlinear susceptibility tensor $\mtens{d}=\chi(2\omega,\omega,\omega)$,
+% %
+% \begin{equation}
+%     \Delta\mtens{d}=\sum_q\Delta\mtens{d}_q(x,y)\exp\left(-i\frac{2\pi}{\Lambda}qz\right)
+% \end{equation}
+% %
+% \subsubsection{Nonlinear susceptibility tensor}
+
+% When the fundamental input field, at frequency $\omega$ is incident in a nonlinear material, the second order polarization $\textbf{P}^{(2)}$ will include components of frequency $2\omega$ (second-harmonic generation) and zero (optical rectification). Therefore, in such a situation, there exist electric fields and polarizations of frequencies $\omega$ and $2\omega$ in the medium. In the time domain, we might therefore write
+% %
+% \begin{subequations}
+% \begin{gather}
+%     \textbf{E}(t)=\Re{\textbf{E}^{\omega}\exp(i\omega t)+\textbf{E}^{2\omega}\exp(i2\omega t)}\\
+%     \textbf{P}(t)=\Re{\textbf{P}^{\omega}\exp(i\omega t)+\textbf{P}^{2\omega}\exp(i2\omega t)}
+% \end{gather}
+% \end{subequations}
+% % 
+% The linear polarizations are functions of the relative permittivity (I'll simply use bold face instead of tensor notation) and the input field
+% %
+% \begin{subequations}
+% \begin{gather}
+%     \textbf{P}_{(L)}^{\omega}=\epsilon_0 \Delta \bm{\epsilon}^{\omega}\textbf{E}^{\omega}\\
+%     \textbf{P}_{(L)}^{2\omega}=\epsilon_0 \Delta \bm{\epsilon}^{2\omega}\textbf{E}^{2\omega}
+% \end{gather}
+% \end{subequations}
+
+% For the non linear polarizatoin, we employ the following definition
+
+% \begin{equation}
+%     P_i^{(2)}(\omega)=\epsilon_0\chi^{(2)}_{ijk}(\omega)E_j(\omega')E_k(\omega-\omega')
+% \end{equation}
+% %
+% which can be made equivalent to the following integral, just by considering the continuous analog $\chi^{(2)}_{ijk}\equiv\Tilde{\chi}^{(2)}_{ijk}\Delta\omega$, such that
+% \begin{equation}
+%     P^{(2)}_i(\omega)=\epsilon_0\int_{-\infty}^{\infty}d\omega'\Tilde{\chi}^{(2)}_{ijk}(\omega;\omega',\omega-\omega')E_j(\omega')E_k(\omega-\omega')
+% \end{equation}
+% %
+% and therefore
+% \begin{subequations}
+% \begin{gather}
+%     \textbf{P}_{(NL)}^{\omega}=2\epsilon_0\bm{d}\cdot\textbf{E}^{\bm{\omega}^*}\textbf{E}^{2\bm{\omega}}\\
+%     \textbf{P}_{(NL)}^{2\bm{\omega}}=\epsilon_0\bm{d}\cdot\textbf{E}^{\bm{\omega}}\textbf{E}^{\bm{\omega}}
+% \end{gather}
+% \end{subequations}
+
+% \subsubsection{Coupled Mode Equations for SHG}
+
+% Now we must plug in all this results into the overlap integral derived in the previous section
+% \begin{equation}
+%     \frac{\partial}{\partial z}A_m(z)=-\frac{i\omega}{4P_m}\iint_S\textbf{E}^*_m(x,y,\omega)\cdot\textbf{P}(x,y,\omega)e^{i\beta_mz}\;dxdy
+% \end{equation}
+% For the input, $\omega$ frequency component, the equation becomes
+% \begin{equation}
+%     \frac{\partial A^{\omega}}{\partial z}=-\frac{i\omega}{4P_z^{\omega}}\iint_S\left[\textbf{E}^{\omega^*}(x,y)e^{i\beta^{\omega}z}\cdot\left(\epsilon_0\Delta\bm{\epsilon}^{\omega}\textbf{E}^{\omega}+2\epsilon_0\textbf{d}\textbf{E}^{\omega^*}\textbf{E}^{2\omega}\right)\right]dxdy
+% \end{equation}
+% \begin{multline}
+%     \frac{\partial A^{\omega}}{\partial z}=-\frac{i\omega}{4P_z^{\omega}}\epsilon_0\iint_S\left[\Delta\bm{\epsilon}^{\omega}\textbf{E}^{\omega^*}(x,y)\cdot\textbf{E}^{\omega}(x,y)A^{\omega}(z)e^{-i(\beta^{\omega}-\beta^{\omega})z}+\\+2\textbf{d}\textbf{E}^{\omega^*}(x,y)\left[A^{\omega}(z)\right]^*A^{2\omega}(z)\textbf{E}^{\omega^*}(x,y)\textbf{E}^{2\omega}(x,y)e^{-i(\beta^{2\omega}-2\beta^{\omega})z}\right]dxdy
+% \end{multline}
+% \begin{multline}
+%     \frac{\partial A^{\omega}}{\partial z}=-\frac{i\omega}{4P_z^{\omega}}\epsilon_0\iint_S\left(\left[\textbf{E}^{\omega}(x,y)\right]^*\cdot\left[\textbf{E}^{\omega}(x,y)\right]A^{\omega}(z)\sum_q\Delta\bm{\epsilon}(x,y)e^{-iKz}\right)dxdy+\\-\frac{i\omega}{4P_z^{\omega}}\epsilon_0\iint_S\left(\sum_q2\textbf{d}(x,y)\left[\textbf{E}^{\omega^{*}}\right]^*\left[A^{\omega}(z)\right]^*A^{2\omega}(z)\textbf{E}^{2\omega}(z)e^{-i(\beta^{2\omega}-2\beta^{\omega}-qK)z}\right)dxdy
+% \end{multline}
+% By selecting only the $q=\pm1$ terms so as to make the permittivity a cosine function, we come to
+% \begin{equation}
+% \frac{d}{dz}A^{\omega}(z)+i\left(2\kappa_L^\omega\cos(Kz)A^{\omega}(z)\right)=-i\sum_q\left[\kappa_{NL}^{(q)}\right]^*\exp(-i2\Delta_qz)\left[A^{\omega}(z)\right]^*A^{2\omega}(z)
+% \end{equation}
+% Where
+% \begin{subequations}
+% \begin{equation}
+%     \kappa_L^{\omega}=\frac{\omega\epsilon_0}{4}\iint\left[E^{\omega}(x,y)\right]^*\Delta\bm{\epsilon}_1^{\omega}(x,y)\textbf{E}^{\omega}(x,y)\;dxdy\\
+% \end{equation}
+% \begin{equation}
+%     \kappa_{NL}^{(q)}=\frac{2\omega\epsilon_0}{4}\iint\left[\textbf{E}^{2\omega}(x,y)\right]^*\textbf{d}_q(x,y)\left[\textbf{E}^{\omega}(x,y)\right]^2\;dxdy
+% \end{equation}
+% \end{subequations}
+
+% And in order to obtain an equation for the $2\omega$ component, we need to go back and substitute a different polarization into the overlap integral. The resulting equation for $A^{2\omega}(z)$ is
+% %
+% \begin{equation}
+%     \frac{d}{dz}A^{2\omega}(z)+i\left(2\kappa_L^{2\omega}\cos(Kz)A^{2\omega}(z)\right)=-i\sum_q\left[\kappa_{NL}^{(q)}\right]\exp(i2\Delta_qz)\left[A^{\omega}(z)\right]^2,
+% \end{equation}
+% where
+% \begin{equation}
+%     \kappa_{L}^{2\omega}=\frac{2\omega\epsilon_0}{4}\iint\left[E^{2\omega}(x,y)\right]^*\Delta\bm{\epsilon}_1^{2\omega}(x,y)\textbf{E}^{2\omega}(x,y)\;dxdy\\
+% \end{equation}
+
+% The coupled equations now predict that the amplitudes of the mode will change as the fields propagate in the $z$ direction in some manner proportional to the spatial overlap of the different fields. Coming back to the coupled equations
+% \begin{subequations}
+% \begin{equation}
+%     \frac{d}{dz}A^{\omega}(z)+i\left(2\kappa_L^\omega\cos(Kz)A^{\omega}(z)\right)=-i\sum_q\left[\kappa_{NL}^{(q)}\right]^*\exp(-i2\Delta_qz)\left[A^{\omega}(z)\right]^*A^{2\omega}(z)
+% \end{equation}
+% \begin{equation}
+%     \frac{d}{dz}A^{2\omega}(z)+i\left(2\kappa_L^{2\omega}\cos(Kz)A^{2\omega}(z)\right)=-i\sum_q\left[\kappa_{NL}^{(q)}\right]\exp(i2\Delta_qz)\left[A^{\omega}(z)\right]^2,
+% \end{equation}
+% \end{subequations}
+
+% If we write
+% \begin{subequations}
+% \begin{gather}
+%     A^{\omega}(z)=A(z)\exp\left(-i\frac{2\kappa_L^{\omega}}{K}\sin(Kz)\right)\\
+%     A^{2\omega}(z)=B(z)\exp\left(-i\frac{2\kappa_L^{2\omega}}{K}\sin(Kz)\right)
+% \end{gather}
+% \end{subequations}
+% %
+% then
+% %
+% \begin{subequations*}
+% \begin{gather*}
+%     \frac{dA^{\omega}(z)}{dz}=\frac{dA(z)}{dz}\exp\left(-i\frac{2\kappa_L^{\omega}}{K}\sin(Kz)\right)-2iA(z)\kappa_L^{\omega}\cos(Kz)\exp\left(-i\frac{2\kappa_L^{\omega}}{K}\sin(Kz)\right)\\
+%     \frac{A^{2\omega}(z)}{dz}=\frac{dB(z)}{dz}\exp\left(-i\frac{2\kappa_L^{2\omega}}{K}\sin(Kz)\right)-2iA(z)\kappa_L^{2\omega}\cos(Kz)\exp\left(-i\frac{2\kappa_L^{2\omega}}{K}\sin(Kz)\right)
+% \end{gather*}
+% \end{subequations*}
+% %
+% which is extremely useful, since it will cancel out the second term in each of the coupled equations. Once we divide both sides by the exponentials, we will end up with
+% \begin{subequations}
+% \begin{multline*}
+%     \frac{d}{dz}A(z)-2iA(z)\kappa_L^{\omega}\cos(Kz)+i\left(2\kappa_L^\omega\cos(Kz)A(z)\right)=\\=-i\sum_q\left[\kappa_{NL}^{(q)}\right]^*\exp(-i2\Delta_qz)A^*(z)\exp\left(2i\frac{2\kappa_L^{\omega}}{K}\sin(Kz)\right)B(z)\exp\left(-i\frac{2\kappa_L^{2\omega}}{K}\sin(Kz)\right)
+% \end{multline*}
+% \begin{multline*}
+%     \frac{d}{dz}B(z)-2iA(z)\kappa_L^{2\omega}\cos(Kz)+i\left(2\kappa_L^{2\omega}\cos(Kz)A^{2\omega}(z)\right)=\\=-i\sum_q\left[\kappa_{NL}^{(q)}\right]\exp(i2\Delta_qz)A^2(z)\exp\left(-2i\frac{2\kappa_L^{\omega}}{K}\sin(Kz)\right)\exp\left(i\frac{2\kappa_L^{2\omega}}{K}\sin(Kz)\right)\\
+% \end{multline*}
+% \end{subequations}
+% and
+% \begin{subequations}
+% \begin{equation*}
+%     \frac{d}{dz}A(z)=-i\sum_q\left[\kappa_{NL}^{(q)}\right]^*\exp(-i2\Delta_qz)A^*(z)\exp\left(2i\frac{2\kappa_L^{\omega}}{K}\sin(Kz)\right)B(z)\exp\left(-i\frac{2\kappa_L^{2\omega}}{K}\sin(Kz)\right)
+% \end{equation*}
+% \begin{equation*}
+%     \frac{d}{dz}B(z)=-i\sum_q\left[\kappa_{NL}^{(q)}\right]\exp(i2\Delta_qz)A^2(z)\exp\left(-2i\frac{2\kappa_L^{\omega}}{K}\sin(Kz)\right)\exp\left(i\frac{2\kappa_L^{2\omega}}{K}\sin(Kz)\right)\\
+% \end{equation*}
+% \end{subequations}
+% joining the exponentials
+% \begin{subequations}
+% \begin{equation*}
+%     \frac{d}{dz}A(z)=-i\sum_q\left[\kappa_{NL}^{(q)}\right]^*\exp(-i2\Delta_qz)A^*(z)B(z)\exp\left(-i\left[\frac{2(\kappa_L^{2\omega}-2\kappa_L^{\omega})}{K}\right]\sin(Kz)\right)
+    
+%     %\exp\left(2i\frac{2\kappa_L^{\omega}}{K}\sin(Kz)\right)\exp\left(-i\frac{2\kappa_L^{2\omega}}{K}\sin(Kz)\right)
+% \end{equation*}
+% \begin{equation*}
+%     \frac{d}{dz}B(z)=-i\sum_q\left[\kappa_{NL}^{(q)}\right]\exp(i2\Delta_qz)A^2(z)\exp\left(i\left[\frac{2(\kappa_L^{2\omega}-2\kappa_L^{\omega})}{K}\right]\sin(Kz)\right)
+%     %\exp\left(-2i\frac{2\kappa_L^{\omega}}{K}\sin(Kz)\right)\\
+% \end{equation*}
+% \end{subequations}
+% Therefore
+% \begin{subequations}
+% \begin{gather}
+%     \frac{d}{dz}A(z)=-i\kappa^*A^*(z)B(z)\exp\left[-i(2\Delta)z\right]\\
+%     \frac{d}{dz}B(z)=-i\kappa\left[A(z)\right]^2\exp\left[i(2\Delta)z\right]
+% \end{gather}
+% \end{subequations}
+
+\section{Second Harmonic Generation}
+
+Let us now consider the case of a very simple nonlinear process, in which a beam is incident upon a second order nonlinear crystal, and is converted to a signal of twice its frequency. The input (pump) field is given by
+\begin{equation}
+    \textbf{E}(\textbf{r})=A_p(z,\omega)\textbf{E}_p(x,y)\exp{-i\beta_m z}
+    \label{eq:field}
+\end{equation}
+%
+And the polarization is given by a tensor product, whose components can be written, in Einstein notation, as
+\begin{equation}
+    P^{(NL)}_i=\varepsilon_0\left(\chi^{(1)}_{ij}E_j+\chi^{(2)}_{ijk}E_jE_k+\chi^{(3)}_{ijkl}E_jE_kE_l\right)
+\end{equation}
+Notice that in obtaining Equation \ref{eq:overlap integral}, the first (linear) term was excluded from $\textbf{P}_{NL}$ via the relative electric permittivity $\varepsilon$. Additionally, let us assume we are dealing with a material exhibiting a large $\chi^{(2)}$ compared to its $\chi^{(3)}$ susceptibility. So
+\begin{equation}
+    \textbf{P}_{NL}=\varepsilon_0\Tilde{\chi}^{(2)}\textbf{E}^2
+\end{equation}
+Writing out each component, and now making the summations explicit
+\begin{equation}
+    P^{(NL)}_i(\omega_m+\omega_n)=\varepsilon_0\sum_{jk}\sum_{(nm)}2d_{ijk}E_j(\omega_n)E_k(\omega_m),\;\;\text{where}\;\;d_{ijk}=\frac{1}{2}\chi_{ijk}^{(2)}
+\end{equation}
+In order to best represent this in two dimensions, we will make the following assumptions
+\begin{itemize}
+    \item That there is symmetry in the exchange of the last two indices (jk), such that the following substitutions may take place
+    \begin{equation*}
+       \text{jk}\rightarrow\text{l}:\;\;11\rightarrow1,\;\;22\rightarrow2,\;\;33\rightarrow3,\;\;23,32\rightarrow4,\;\;13,31\rightarrow5,\;\;12,21\rightarrow6
+    \end{equation*}
+    This assumption is valid in the presence of Kleinman's symmetry, and also valid in general for SHG, since $\omega_m=\omega_n$. The susceptibility can now be written as
+    \begin{equation*}
+        d_{il}=\begin{pmatrix}
+            d_{11} & d_{12} & d_{13} & d_{14} & d_{15} & d_{16}\\
+            d_{21} & d_{22} & d_{23} & d_{24} & d_{25} & d_{26}\\
+            d_{31} & d_{32} & d_{33} & d_{34} & d_{35} & d_{36}
+        \end{pmatrix}
+    \end{equation*}
+    \item That Kleinman's symmetry is valid, such that all indexes can be permuted freely, such that many terms cease to be independent
+    \begin{equation*}
+        d_{12}=d_{122}=d_{212}=d_{26},\;\;\;d_{14}=d_{123}=d_{213}=d_{25},\;\;\;\text{and so on...}
+    \end{equation*}
+    \begin{equation*}
+        d_{il}=\begin{pmatrix}
+            d_{11} & d_{12} & d_{13} & d_{14} & d_{15} & d_{16}\\
+            d_{16} & d_{22} & d_{23} & d_{24} & d_{14} & d_{12}\\
+            d_{15} & d_{24} & d_{33} & d_{23} & d_{13} & d_{14}
+        \end{pmatrix}
+    \end{equation*}
+\end{itemize}
+Now the final expression for the nonlinear polarization is
+\begin{equation}
+\begin{pmatrix}
+    P^{(NL)}_x(\omega_1+\omega_2) \\P^{(NL)}_y(\omega_1+\omega_2)\\P^{(NL)}_z(\omega_1+\omega_2)\end{pmatrix}=4\varepsilon_0
+    \begin{pmatrix}
+        d_{11} & d_{12} & d_{13} & d_{14} & d_{15} & d_{16}\\
+        d_{16} & d_{22} & d_{23} & d_{24} & d_{14} & d_{12}\\
+        d_{15} & d_{24} & d_{33} & d_{23} & d_{13} & d_{14}
+    \end{pmatrix}\begin{pmatrix}
+        E_x(\omega_1)E_x(\omega_2)\\
+        E_y(\omega_1)E_y(\omega_2)\\
+        E_z(\omega_1)E_z(\omega_1)\\
+        E_y(\omega_1)E_z(\omega_2)+E_z(\omega_1)E_y(\omega_2)\\
+        E_x(\omega_1)E_z(\omega_2)+E_z(\omega_1)E_x(\omega_2)\\
+        E_x(\omega_1)E_y(\omega_2)+E_y(\omega_1)+E_x(\omega_2)
+    \end{pmatrix}
+\end{equation}
+And even more simply, for second harmonic generation we'll have
+\begin{equation}
+\begin{pmatrix}
+    P^{(NL)}_x(2\omega) \\P^{(NL)}_y(2\omega)\\P^{(NL)}_z(2\omega)\end{pmatrix}=2\varepsilon_0
+    \begin{pmatrix}
+        d_{11} & d_{12} & d_{13} & d_{14} & d_{15} & d_{16}\\
+        d_{16} & d_{22} & d_{23} & d_{24} & d_{14} & d_{12}\\
+        d_{15} & d_{24} & d_{33} & d_{23} & d_{13} & d_{14}
+    \end{pmatrix}\begin{pmatrix}
+        E_x(\omega)^2\\
+        E_y(\omega)^2\\
+        E_z(\omega)^2\\
+        2E_y(\omega)E_z(\omega)\\
+        2E_x(\omega)E_z(\omega)\\
+        2E_x(\omega)E_y(\omega)
+    \end{pmatrix}
+\end{equation}
+But now consider a waveguide-like system where a z-cut nonlinear crystal like Lithium Niobate displays a very large optical nonlinearity along its z-axis ($d_{33} = 27 pm/V$), such that all other contributions are negligible in comparison to it.
+
+We generally have $z$ point in the propagation direction of the waveguide, but now notice that a $z-cut$ crystal will have its z-axis point upwards towards the cladding (either $x$ or $y$ in the original reference frame). So a quasi-TM mode (or a TM mode in a slab waveguide), whose electric field is best aligned with the $z$ direction, will mostly likely display optimal nonlinear coupling in such a system. In this case we can write
+\begin{equation}
+    \textbf{P}^{(NL)}=2\varepsilon_0d_{\text{eff}}E^2(\omega)\hat{\textbf{z}}=2\varepsilon_0d_{33}E^2_z(\omega)\hat{\textbf{z}},
+\end{equation}
+recovering the definition in Equation \ref{eq:field}, we get
+\begin{equation}
+    \textbf{P}^{(NL)}=2\varepsilon_0 d_{33}A^2(z,\omega)E^2_\omega(x,y)\exp{-2i\beta^\omega z}\hat{\textbf{z}}
+\end{equation}
+Plugging this result back into the integral from \ref{eq:overlap integral}
+\begin{equation}
+    \frac{\partial}{\partial z} A_m(z,\omega)=-\frac{i\omega}{4P_m}e^{i\beta_mz}\iint_S\textbf{E}_{m}^*(x,y,\omega)\cdot\textbf{P}_{NL}(x,y,\omega)\;dx\,dy
+\end{equation}
+\begin{multline}
+    \frac{\partial}{\partial z} A^{2\omega}(z)=-\frac{i\omega}{4P_m}\exp{i\beta^{2\omega} z}\iint_S\left[E^{2\omega}(x,y)\hat{\textbf{z}}\right]^*\cdot\\\cdot\left[2\varepsilon_0 d_{33}\left(A^{\omega}(z,\omega)E^\omega(x,y)\right)^2\exp{-2i\beta^\omega z}\hat{\textbf{z}}\right]\;dx\,dy
+\end{multline}
+notice that the $\textbf{E}^*_m(x,y,\omega)$ factor does not contain its own $z$ dependent amplitude. It was included in the ``perturbative waveguide solution'' precisely by virtue of representing the unperturbed mode, which differs from the perturbed mode by the presence of the $A(z,\omega)$ factor. Additionally, its $z$-dependent \textit{factor} is already written explicitly, and taken outside the integral.
+\begin{equation}
+    \frac{\partial}{\partial z} A^{2\omega}(z)=-\frac{i\omega}{4P_m}\left[A^{\omega}(z)\right]^2e^{i(\beta^{2\omega}-2\beta^{\omega}) z}\iint_S\left[E^{2\omega}(x,y)\right]^*\left[2\varepsilon_0 d_{33}\left(E^\omega(x,y)\right)^2\right]\;dx\,dy
+\end{equation}
+All the variables in this equation could have been written with a $m$ subscript, given that it holds true for any of the multiple modes corresponding to the frequencies involved. The final result could be written as
+\begin{equation}
+    \begin{cases}
+        \frac{\partial}{\partial z} A^{2\omega}(z)=-i\kappa\left(\frac{\omega\varepsilon_0d_{33}}{2P_m}\right)\left[A^{\omega}(z)\right]^2e^{i(\beta^{2\omega}-2\beta^{\omega}) z}\\
+        \kappa=\iint_S\left[E^{2\omega}(x,y)\right]^*\left[E^\omega(x,y)\right]^2\;dx\,dy
+    \end{cases}
+\end{equation}
+this is a good place to stop for a quick unit check. Equation \ref{eq:fields.definitions} ensures that $A(z,\omega)$ must be dimensionless, so the left-hand-side has units determined by the spatial derivative alone, so
+\begin{equation*}
+    \frac{1}{m}=-i\left[\iint_S\left[E^{2\omega}(x,y)\right]^*\left[E_\omega(x,y)\right]^2\;dx\,dy\right]\left[\frac{\omega\varepsilon_0d_{33}}{2P_m}\right]\left[A^{\omega}(z)^2e^{i(\beta^{2\omega}-2\beta^{\omega}) z}\right]\\
+\end{equation*}
+\begin{equation*}
+    \frac{1}{m}=\left(\frac{V^3}{m^3}\right)m^2\frac{\frac{1}{s}\cdot\frac{F}{m}\cdot\frac{m}{V}}{W}=
+    \left(\frac{V^3}{m}\right)\frac{\frac{1}{s}\cdot \frac{C}{V}\cdot\frac{1}{V}}{W}=\frac{V\cdot C}{s\cdot m \cdot W}=\frac{J\cdot C}{C\cdot s\cdot m\cdot W}=\frac{1}{m}
+\end{equation*}
+this indicates that the result checks out. An interesting point is to look at the solution under a no-pump depletion approximation, that is, $A^\omega(z)=A_0$, such that under an integration from $0<z<L$
+\begin{equation}
+    A(L)=-\frac{i\kappa\omega\varepsilon_0d_{33}A_0^2}{2P_m}\left(\frac{e^{i\Delta\beta L}-1}{i\Delta}\right)=-\frac{i\kappa\omega\varepsilon_0d_{33}A_0^2}{P_m}\left(e^{i\Delta\beta L}\right)\frac{\sin{\left(\frac{1}{2}\Delta\beta L\right)}}{\frac{1}{2}\Delta\beta L}
+\end{equation}
+\begin{equation}
+    A(L)=-\frac{i\kappa\omega\varepsilon_0d_{33}A_0^2}{P_m}\left(e^{i\Delta\beta L}\right)\text{sinc}{\left(\frac{1}{2}\Delta\beta L\right)}
+\end{equation}
+this result clearly highlights the importance of the phase matching condition. Notice that $\Delta\beta=\beta^{2\omega}-2\beta^{\omega}$ should be zero for efficiency to be optimal, which is equivalent to requiring that the propagation constant be linear relative to frequency (in other words, requiring net zero velocity dispersion).
+
+\section{Sum Frequency Generation}
+
+Page 56 Suhara
+
+\section{Parametric Down Conversion}

@@ -1,0 +1,99 @@
+\documentclass[brazil, header=ruled, 12pt]{report}
+%\documentclass{report}
+
+%%%%%%%%%%%%%% New names %%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\chaptername}{Capítulo}
+\renewcommand{\bibname}{Referências}
+\renewcommand{\contentsname}{Referências}
+\linespread{1.25}   % 1,5 spacing
+%
+%%%%%%%%%%%%%%% Lista de Pacotes %%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}    % url and references
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\usepackage[brazil]{babel}
+\usepackage{amstext}
+\usepackage[pdftex]{graphicx}
+\usepackage{comment}      % comment comands
+\usepackage{indentfirst}      % indent the first paragraphs
+\usepackage{enumitem}    % change itens in itemize and enumerate
+%\usepackage[amssymb]{SIunits}
+%\usepackage{pxfonts}
+%\usepackage[pdf]{pstricks}
+%\usepackage{subfigure}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+%\usepackage{fullpage}
+\usepackage[margin = 1 in]{geometry}
+\usepackage{amsmath}
+\usepackage{appendix}
+\usepackage{stix}
+
+%%%%%%%%%%%%% Novos comandos %%%%%%%%%%%%%%%%%%%%
+\newcommand{\mean}[1]{\left\langle #1 \right\rangle}
+\newcommand{\meanB}[1]{\big\langle #1 \big\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right|}
+\newcommand{\ket}[1]{\left| #1 \right\rangle}
+\newcommand{\af}{\alpha}
+\newcommand{\Dt}{\Delta}
+\newcommand{\dt}{\delta}
+\newcommand{\lb}{\lambda}
+\newcommand{\Om}{\Omega}
+\newcommand{\dpt}{\partial}
+\newcommand{\gm}{\gamma}
+\newcommand{\bt}{\beta}
+\newcommand{\om}{\omega}
+\newcommand{\overlim}[1]{{\buildrel{#1}\over\longrightarrow\;}}
+\newcommand{\Overlim}[1]{{\buildrel{#1}\over\Longrightarrow\;}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\tit}[1]{\textit{#1}}
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\rp}[1]{(\ref{#1})}
+\newcommand{\mr}[1]{\mathrm{#1}}
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\dg}[1]{#1^{\dagger}}
+\newcommand{\sen}{\mathrm{sen}}
+\newcommand{\senh}{\mathrm{senh}}
+%\newcommand\medtilde[1]{\stackrel{\sim}{\smash{#1}\rule{0pt}{1.0ex}}}
+%\newcommand\largetilde[1]{\stackrel{\sim}{\smash{#1}\rule{0pt}{1.0ex}}}
+
+%%%%%%%%%%%%%%% Definicoes de Cores %%%%%%%%%%%%%%%%%%%
+
+\definecolor{LightGray}{RGB}{192,192,192}
+\definecolor{Green4}{RGB}{148,189,94}
+\definecolor{SeaBlue}{RGB}{0,102,204}
+\definecolor{Violet}{RGB}{153,153,255}
+\definecolor{PaleGreen}{RGB}{204,255,255}
+\definecolor{Pump}{RGB}{0,232,0}
+\definecolor{Signal}{RGB}{229,52,0}
+\definecolor{Idler}{RGB}{177,2,12}
+\definecolor{Crystal}{RGB}{31,235,130}
+\definecolor{Alice}{RGB}{170,170,220}
+\definecolor{Bob}{RGB}{190,139,170}
+\definecolor{dgreen2}{HTML}{38761d} 
+\definecolor{rosa}{HTML}{ff00ff} 
+
+%%%%%%%%%%%%%%% Declaracoes %%%%%%%%%%%%%%%%%%%
+
+%%\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+%%%%%%%%%%%%%%%%%% Extras %%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{itemize*}%
+  {\begin{itemize}[leftmargin=2cm]%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+  {\end{itemize}}
+%  
+\newenvironment{itemize**}%
+  {\begin{itemize}[leftmargin=0.5cm]%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parskip}{0pt}}%
+  {\end{itemize}}  
