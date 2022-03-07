@@ -95,7 +95,7 @@ So in order for the whole equation to be in terms of $E$, we should multiply it 
 \end{equation}
 Finally, we take the limit where the number of round-trips is infinite, such that $t_R\rightarrow 0$ and all the field terms become alpha terms. Once we make
 \begin{equation}
-    \sqrt{\gamma_{in}}=\frac{\sqrt{T}}{\sqrt{t_R}}\;\;\;\text{and}\;\;\;\alpha_{in}=\lim_{n\rightarrow\infty}\left(K\frac{E_{in}}{t_R}\right)\;\;\text{such that}\;\;|\alpha_{in}|^2=\frac{\Bar{n}}{t_R}
+    \sqrt{\gamma_{in}}=\frac{\sqrt{T}}{\sqrt{t_R}}\;\;\;\text{and}\;\;\;\alpha_{in}=\lim_{n\rightarrow\infty}\left(K\frac{E_{in}}{\sqrt{t_R}}\right)\;\;\text{such that}\;\;|\alpha_{in}|^2=\frac{\Bar{n}}{t_R}
 \end{equation}
 Thus, the final expression for the Fabry Perot equation is
 \begin{equation}
@@ -103,11 +103,59 @@ Thus, the final expression for the Fabry Perot equation is
     \label{eq:final.fabry.perot}
 \end{equation}
 
-\section*{Properties}
-Consider the case where the resonator is operating in a steady state, such that the derivative in Equation \ref{eq:final.fabry.perot} is zero
+\subsection*{Steady-state operation}
+Consider the case where the resonator is operating at a steady state, such that the derivative in Equation \ref{eq:final.fabry.perot} is zero
 \begin{equation}
     \frac{d\alpha}{dt}=0\;\;\;\Rightarrow \alpha=\frac{\sqrt{\gamma_{in}}\alpha_{in}}{\left(\frac{\gamma}{2}-i\delta\right)}
 \end{equation}
 We should hold on to that result for a second, and take a look at what can be said about the cavity's emission. Equation \ref{eq:beam splitter} told us that
+\begin{equation}
+    E_{out}=\sqrt{T}E_{n-1}(L)-\sqrt{R}E_{in}
+\end{equation}
+when operating at the steady state, we can safely approximate $E_{n-1}(L)\approx E_{n-1}(0)$. Then, by multiplying for $K$, dividing by $\sqrt{t_R}$ and taking the limit, we come back to the $\alpha$ notation
+\begin{equation}
+    \alpha_{out}=\sqrt{\gamma_{in}}\alpha-\alpha_{in}
+    \label{eq:output.fabry.perot}
+\end{equation}
+where $\alpha_{out}$ \textbf{has been defined so as to have units of $1/\sqrt{t}$, and have its square be equivalent to mean outward photon flux, exactly like $\alpha_{in}$}. In turn, $\gamma_{in}$ is exactly like the one defined previously.
+
+Now we can throw the steady-state field result from equation \ref{eq:final.fabry.perot} into equation \ref{eq:output.fabry.perot}, such that
+\begin{equation}
+    \alpha_{out}=\alpha_{in}\left(\frac{\gamma_{in}}{\frac{\gamma}{2}-i\delta}-1\right).
+\end{equation}
+Now we are able to define e general \textbf{reflection coefficient} for the whole Fabry-Perot cavity
+\begin{equation}
+    R_{FB}=\left|\frac{\alpha_{out}}{\alpha_{in}}\right|^2=\left|1+\frac{\gamma_{in}}{i\delta-\frac{\gamma}{2}}\right|^2
+\end{equation}
+where I have multiplied by $-1$ inside the modulus and flipped the signs in the denominator to make things tidier. To add physical intuition, let us separate the components of the terms relating to loss
+\begin{equation}
+    \gamma_{in}=\frac{T}{t_R}\;\;\;\;\;\gamma=\frac{T+T_b+\alpha L}{t_R}\equiv \gamma_{in}+\mu
+\end{equation}
+By this definition, $\mu$ becomes a term containing only \textbf{intracavity losses} (which dissipate energy from the incoming light), and $\gamma_{in}$ contains only the \textbf{coupling losses} (which divert incoming energy outwards, and still contribute to cavity emission).
+
+We can rewrite the cavity reflection coefficient as
+\begin{equation}
+    R_{FB}=\left|\frac{\alpha_{out}}{\alpha_{in}}\right|^2=\left|1+\frac{\gamma_{in}}{i\delta-\frac{\gamma_{in}+\mu}{2}}\right|^2.
+\end{equation}
+And plot it as in Figure \ref{fig:reflectance.plot}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Figuras/fabry-perot reflectance plot.png}
+    \caption{Reflectance of a Fabry-Perot interferometer. In the first plot, varying the magnitude of both contributions to loss. In the second plot, varying their difference.}
+    \label{fig:reflectance.plot}
+\end{figure}
+
+Surprisingly enough, if we simplify the complex modulus, we can rewrite once again as
+\begin{equation}
+    R_{FB}=1-\frac{\mu\gamma_{in}}{\delta^2+\frac{1}{4}(\gamma_{in}+\mu)^2},
+\end{equation}
+which makes the contributions from internal losses and coupling losses interchangeable. Since the peak always occurs at $\delta=0$, it is easy to demonstrate that the ``depth'' of the peak is always given by
+\begin{equation}
+    R_{min}=1-\frac{\mu\gamma_{in}}{\frac{1}{4}(\gamma_{in}+\mu)^2}=\frac{(\gamma_{in}-\mu)^2}{(\gamma_{in}+\mu)^2}=\left(\frac{\gamma_{in}-\mu}{\gamma}\right)^2.
+\end{equation}
+And the width, being the $\delta\omega$ value at which half of $R_{min}$ is reached is easily obtained from the previous result
+
+
 
 
